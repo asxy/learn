@@ -1,0 +1,6 @@
+Makefile 文件规则
+	<target>:<prerequisties>
+	[tab] <commands>
+	target : 目标可以是文件名（多个文件名之间用空格隔开）、操作名，
+	prerequisites : 
+
