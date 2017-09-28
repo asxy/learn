@@ -1,0 +1,52 @@
+建立一个本地git仓库：
+	第一步：
+		$ mkdir <name>
+	第二步：
+		$ git init
+添加文件到git仓库：
+	第一步：
+		$ git add <file>,可反复多次使用，添加多个文件
+	第二步：
+		$ git commit -m "注释语"	
+$ git status 查看当前仓库状态
+$ git diff <file> 如果git status 提示文件被修改，git diff 可以查看具体修改内容
+$ git log 命令显示从最近到最远的提交日志，git log --pretty=oneline参数使排版简洁
+$ HEAD 表示当前版本，HEAD^ 表示上个版本，HEAD^^ 表示上上个版本，HEAD~100表示往上100个版本
+$ git reset --hard HEAD^ 返回上一个版本，git reset --hard <版本号> 返回到指定的版本
+$ git reflog 记录每一次命令
+
+每次修改，如果不add到暂存区，那就不会加入commit中
+
+$ git checkout -- <file> 撤销修改
+	1.<file>自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态
+	2.<file>已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态
+在git 中删除
+	用 $ git rm <file>删掉，并且 $ git commit
+
+github远程仓库
+	上传到github仓库，首先要从github把仓库克隆下来，然后在进行修改
+	关联一个远程库，使用命令 git remote add origin git@server-name:path/repo-name.git
+	关联后，使用命令 $ git push -u origin master 第一次推送master分支的所有内容;
+	此后，被次本地提交后，只要有必要，就可以用命令 $ git push origin master 推送最新修改
+$ git clone git@github.com:path/repo-name.git
+
+$ git checkout -b <name> 便是创建并切换，相当于 $ git branch <name> （创立分支） $git checkout <name> (切换分支)两个命令
+$ git branch 查看当前分支, $ git branch -d <name> 删除分支
+$ git merge <name> 把<name>分支的工作成果合并到 master 分支上
+当git无法自动合并分支时，就必须首先解决冲突。解决冲突后，在提交，合并完成。
+用git log --graph 命令可以看到分支合并图
+合并分支时，加上 --no-ff 参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过的合并，而 fast forward 合并就看不出来曾经做过的合并。
+当手头工作没有完成时，先把工作现场 $ git stash 一下，然后去修复bug,修复后，再 $ git stash pop，回到工作i现场
+$ git stash apply恢复，恢复后，stash内容并不删除，需要用 $ git stash drop 删除
+$ git stash pop 恢复的同时把stash内容也删了
+$ git branch -D <name> 强行删除一个没有合并过的分支
+$ git remote 查看远程库的信息，-v 显示详细信息
+$ git checkout -b dev origin/dev 创建本地dev分支
+$ git branch --Set-upstream dev origin/dev 本地dev分支与远程origin/dev分支链接
+$ git tag <name>打标签
+$ git show <tagname> 查看标签信息
+创建带有说明的标签，-a指定标签名，-m指定说明文字：$ git tag -a v0.1 -m "version 0.1 released" 3628164
+$ git tag -d <tagname> 删除标签
+$ git push origin <tagname> 推送某个标签到远程，$ git push origin --tags 一次性推送全部尚未推送到远程的本地标签
+
+删除远程标签，先删除本地标签，然后 $ git push origin :refs/tags/<tagname> 从远程删除
